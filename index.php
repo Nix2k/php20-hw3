@@ -2,21 +2,22 @@
 	//Составляем массив
 	$animals = ['Africa'=>['Giraffa camelopardalis','Hippopotamus amphibius','Syncerus caffer'],'Eurasia'=>['Ursus arctos','Cervus elaphus','Sciurus vulgaris'],'North America'=>['Dasypus novemcinctus','Alligator mississippiensis','Castor canadensis'],'South America'=>['Lama guanicoe','Myrmecophaga tridactyla','Tremarctos ornatus'],'Antarctica'=>['Leptonychotes weddellii','Aptenodytes forsteri','Hydrurga leptonyx'],'Australia'=>['Phascolarctos cinereus','Tachyglossus aculeatus','Macropus']];
 
+	//Задаём массивы
+	$two_words = array();
+	$first_word = array();
+	$second_word = array();
+	$new_animals = array();
+
 	//Теперь находим всех зверей, название которых состоит из двух слов. Составляем из них новый массив.
+	//Разобьем массив $two_words на два, $first_word - первое слово, $second_word - второе слово
 	foreach ($animals as $cont => $animals0) {
 		foreach ($animals0 as $animal) {
-			if (strpos($animal, ' ')!==false)
+			if (str_word_count($animal)==2) {
 				$two_words[$cont][] = $animal;
-		}
-	}
-
-
-	//Разобьем массив $two_words на два, $first_word - первое слово, $second_word - второе слово
-	foreach ($two_words as $cont => $animals0) {
-		foreach ($animals0 as $animal) {
-			$words_aray = explode(' ', $animal);
-			$first_word[$cont][] = $words_aray[0];
-			$second_word[] = $words_aray[1];
+				$words_array = explode(' ', $animal);
+				$first_word[$cont][] = $words_array[0];
+				$second_word[] = $words_array[1];
+			}
 		}
 	}
 
@@ -44,14 +45,8 @@
 <?php
 	//выводим результат
 	foreach ($new_animals as $cont => $animals0) {
-		echo "<h2>$cont</h2>";
-		$imax=count($animals0)-1;
-		echo "<p>";
-		if ($imax>0) {
-			for ($i=0; $i<$imax; $i++) 
-				echo "$animals0[$i], ";
-		}
-		echo "$animals0[$imax]</p>";
+		$animals_str = implode(',', $animals0);
+		echo "<h2>$cont</h2><p>$animals_str</p>";
 	}
 ?>
 
